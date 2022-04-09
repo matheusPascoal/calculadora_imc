@@ -8,7 +8,18 @@ class CalculoImc extends StatefulWidget {
 }
 
 class _CalculoImcState extends State<CalculoImc> {
-  calculadora() {
+  TextEditingController pesoController = TextEditingController();
+  TextEditingController alturaController = TextEditingController();
+  String _informativo = 'Informe seus dados!';
+  _resetButton() {
+    pesoController.text = '';
+    alturaController.text = '';
+    var _informativo;
+  }
+
+  peso() {
+    pesoController.text;
+
     if (18.5 >= 24.9) {
       print('Normal');
     } else if (25 >= 29.9) {
@@ -27,7 +38,13 @@ class _CalculoImcState extends State<CalculoImc> {
         appBar: AppBar(
           centerTitle: true,
           title: Text('Calculadora IMC'),
-          leading: Icon(Icons.refresh, color: Colors.green, size: 40),
+          leading: IconButton(
+              onPressed: () {
+                setState(() {
+                  _resetButton();
+                });
+              },
+              icon: Icon(Icons.refresh, color: Colors.green, size: 40)),
         ),
         backgroundColor: Colors.blueGrey[800],
         body: Column(
@@ -42,6 +59,7 @@ class _CalculoImcState extends State<CalculoImc> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
+                controller: pesoController,
                 decoration: InputDecoration(
                     labelText: 'Peso (KG)',
                     enabledBorder: OutlineInputBorder(
@@ -60,6 +78,7 @@ class _CalculoImcState extends State<CalculoImc> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
+                controller: alturaController,
                 decoration: InputDecoration(
                   labelText: 'Altura (cm)',
                   enabledBorder: OutlineInputBorder(
@@ -75,7 +94,9 @@ class _CalculoImcState extends State<CalculoImc> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {});
+              },
               child: Text(
                 'CALCULAR',
                 style: TextStyle(fontWeight: FontWeight.bold),
